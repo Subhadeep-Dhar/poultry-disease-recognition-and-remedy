@@ -44,5 +44,9 @@
     {
         "organ": "comb",
         "finding": "comb_cyanosis"
+    },
+    {
+        "organ": "proventriculus",
+        "finding": "pinpoint_hemorrhage"
     }
 ]
