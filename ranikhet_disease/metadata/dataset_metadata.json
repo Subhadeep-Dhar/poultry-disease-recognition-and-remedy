@@ -28,5 +28,9 @@
     {
         "organ": "legs",
         "finding": "leg_paralysis"
+    },
+    {
+        "organ": "wings",
+        "finding": "wing_drooping"
     }
 ]
