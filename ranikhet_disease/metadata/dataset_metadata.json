@@ -52,5 +52,9 @@
     {
         "organ": "proventriculus",
         "finding": "pinpoint_hemorrhage"
+    },
+    {
+        "organ": "trachea",
+        "finding": "severe_hemorrhage"
     }
 ]
