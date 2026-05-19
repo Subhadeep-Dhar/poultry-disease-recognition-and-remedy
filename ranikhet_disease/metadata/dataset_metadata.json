@@ -36,5 +36,9 @@
     {
         "organ": "head",
         "finding": "head_backward_rotation"
+    },
+    {
+        "organ": "comb",
+        "finding": "comb_necrosis"
     }
 ]
