@@ -1,69 +1,193 @@
 [
-    {
-        "disease": "Ranikhet",
-        "category": "clinical",
-        "organ": "digestive",
-        "finding": "green_white_mucous_stool",
-        "severity": "moderate"
-    },
-    {
-        "category": "clinical",
-        "organ": "face",
-        "finding": "facial_swelling"
-    },
-    {
-        "category": "clinical",
-        "organ": "eye",
-        "finding": "conjunctivitis"
-    },
-    {
-        "category": "clinical",
-        "organ": "respiratory",
-        "finding": "nasal_discharge"
-    },
-    {
-        "organ": "neck",
-        "finding": "twisted_neck"
-    },
-    {
-        "organ": "legs",
-        "finding": "leg_paralysis"
-    },
-    {
-        "organ": "wings",
-        "finding": "wing_drooping"
-    },
-    {
-        "organ": "head",
-        "finding": "head_backward_rotation"
-    },
-    {
-        "organ": "comb",
-        "finding": "comb_necrosis"
-    },
-    {
-        "organ": "comb",
-        "finding": "comb_cyanosis"
-    },
-    {
-        "organ": "proventriculus",
-        "finding": "pinpoint_hemorrhage"
-    },
-    {
-        "organ": "proventriculus",
-        "finding": "pinpoint_hemorrhage"
-    },
-    {
-        "organ": "trachea",
-        "finding": "severe_hemorrhage"
-    },
-    {
-        "organ": "small_intestine",
-        "finding": "pinpoint_hemorrhage"
-    },
-    {
-        "organ": "farm_level",
-        "finding": "high_mortality",
-        "mortality_rate": ">90%"
-    }
+  {
+    "id": 1,
+    "imageFileName": "ranikhet_green_white_mucous_stool_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "digestive",
+    "finding": "green_white_mucous_stool",
+    "severity": "moderate",
+    "hindiLabel": "हरे-सफेद रंग का श्लेष्मयुक्त दस्त"
+  },
+  {
+    "id": 2,
+    "imageFileName": "ranikhet_face_swelling_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "face",
+    "finding": "facial_swelling",
+    "severity": "moderate",
+    "hindiLabel": "चेहरे पर सूजन"
+  },
+  {
+    "id": 3,
+    "imageFileName": "ranikhet_twisted_neck_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "neck",
+    "finding": "twisted_neck",
+    "severity": "high",
+    "hindiLabel": "गर्दन का टेढ़ा होना"
+  },
+  {
+    "id": 4,
+    "imageFileName": "ranikhet_leg_paralysis_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "legs",
+    "finding": "leg_paralysis",
+    "severity": "high",
+    "hindiLabel": "पैरों का लकवा"
+  },
+  {
+    "id": 5,
+    "imageFileName": "ranikhet_wing_drooping_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "wings",
+    "finding": "wing_drooping",
+    "severity": "moderate",
+    "hindiLabel": "पंख का लटक जाना"
+  },
+  {
+    "id": 6,
+    "imageFileName": "ranikhet_head_backward_rotation_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "head",
+    "finding": "head_backward_rotation",
+    "severity": "high",
+    "hindiLabel": "सिर का उल्टा मुड़ जाना"
+  },
+  {
+    "id": 7,
+    "imageFileName": "ranikhet_comb_necrosis_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "comb",
+    "finding": "comb_necrosis",
+    "severity": "high",
+    "hindiLabel": "सूजी हुई एवं मृत ऊतक वाली कलगी"
+  },
+  {
+    "id": 8,
+    "imageFileName": "ranikhet_blue_comb_cyanosis_01.png",
+    "disease": "Ranikhet",
+    "category": "clinical",
+    "organ": "comb",
+    "finding": "comb_cyanosis",
+    "severity": "high",
+    "hindiLabel": "नीले एवं मृत ऊतक वाले कलगी"
+  },
+  {
+    "id": 9,
+    "imageFileName": "ranikhet_proventriculus_pinpoint_hemorrhage_01.png",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "proventriculus",
+    "finding": "pinpoint_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "प्रोवेंट्रिकुलस में सूक्ष्म बिंदु जैसे रक्तस्राव"
+  },
+  {
+    "id": 10,
+    "imageFileName": "ranikhet_proventriculus_pinpoint_hemorrhage_02.png",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "proventriculus",
+    "finding": "pinpoint_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "प्रोवेंट्रिकुलस में सूक्ष्म बिंदु जैसे रक्तस्राव"
+  },
+  {
+    "id": 11,
+    "imageFileName": "ranikhet_trachea_severe_hemorrhage_01.png",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "trachea",
+    "finding": "severe_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "श्वासनली में गंभीर रक्तसंचय"
+  },
+  {
+    "id": 12,
+    "imageFileName": "ranikhet_small_intestine_pinpoint_hemorrhage_01.png",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "small_intestine",
+    "finding": "pinpoint_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "छोटी आंत में सूक्ष्म बिंदु जैसे रक्तस्राव"
+  },
+  {
+    "id": 13,
+    "imageFileName": "ranikhet_high_mortality_pattern_01.png",
+    "disease": "Ranikhet",
+    "category": "farm_level",
+    "organ": "farm",
+    "finding": "high_mortality",
+    "severity": "critical",
+    "mortality_rate": ">90%",
+    "hindiLabel": "अत्यधिक मृत्यु दर"
+  },
+  {
+    "id": 14,
+    "imageFileName": "ranikhet_proventriculus_blood_spots_03.jpeg",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "proventriculus",
+    "finding": "blood_spots",
+    "severity": "high",
+    "hindiLabel": "प्रोवेंट्रिकुलस पर रक्तस्राव"
+  },
+  {
+    "id": 15,
+    "imageFileName": "ranikhet_cecum_hemorrhage_01.jpeg",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "cecum",
+    "finding": "hemorrhage",
+    "severity": "high",
+    "hindiLabel": "सीकम में रक्तस्राव"
+  },
+  {
+    "id": 16,
+    "imageFileName": "ranikhet_intestinal_lesion_hemorrhage_05.jpeg",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "intestine",
+    "finding": "lesion_and_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "आंतों पर छोटे-छोटे रक्तस्राव के धब्बे और घाव"
+  },
+  {
+    "id": 17,
+    "imageFileName": "ranikhet_small_intestine_pinpoint_hemorrhage_02.png",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "intestine",
+    "finding": "pinpoint_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "छोटी आंत में सूक्ष्म बिंदु जैसे रक्तस्राव"
+  },
+  {
+    "id": 18,
+    "imageFileName": "ranikhet_small_intestine_pinpoint_hemorrhage_03.png",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "intestine",
+    "finding": "pinpoint_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "छोटी आंत में सूक्ष्म बिंदु जैसे रक्तस्राव"
+  },
+  {
+    "id": 19,
+    "imageFileName": "ranikhet_small_intestine_pinpoint_hemorrhage_04.png",
+    "disease": "Ranikhet",
+    "category": "postmortem",
+    "organ": "intestine",
+    "finding": "pinpoint_hemorrhage",
+    "severity": "high",
+    "hindiLabel": "छोटी आंत में सूक्ष्म बिंदु जैसे रक्तस्राव"
+  }
 ]
