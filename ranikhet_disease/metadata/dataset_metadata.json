@@ -56,5 +56,9 @@
     {
         "organ": "trachea",
         "finding": "severe_hemorrhage"
+    },
+    {
+        "organ": "small_intestine",
+        "finding": "pinpoint_hemorrhage"
     }
 ]
