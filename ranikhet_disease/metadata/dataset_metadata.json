@@ -32,5 +32,9 @@
     {
         "organ": "wings",
         "finding": "wing_drooping"
+    },
+    {
+        "organ": "head",
+        "finding": "head_backward_rotation"
     }
 ]
