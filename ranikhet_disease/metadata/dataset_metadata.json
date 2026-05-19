@@ -60,5 +60,10 @@
     {
         "organ": "small_intestine",
         "finding": "pinpoint_hemorrhage"
+    },
+    {
+        "organ": "farm_level",
+        "finding": "high_mortality",
+        "mortality_rate": ">90%"
     }
 ]
