@@ -1,14 +1,28 @@
 [
-  {
-    "disease": "Ranikhet",
-    "category": "clinical",
-    "organ": "digestive",
-    "finding": "green_white_mucous_stool",
-    "severity": "moderate"
-  },
-  {
-    "category": "clinical",
-    "organ": "face",
-    "finding": "facial_swelling"
-  }
+    {
+        "disease": "Ranikhet",
+        "category": "clinical",
+        "organ": "digestive",
+        "finding": "green_white_mucous_stool",
+        "severity": "moderate"
+    },
+    {
+        "category": "clinical",
+        "organ": "face",
+        "finding": "facial_swelling"
+    },
+    {
+        "category": "clinical",
+        "organ": "eye",
+        "finding": "conjunctivitis"
+    },
+    {
+        "category": "clinical",
+        "organ": "respiratory",
+        "finding": "nasal_discharge"
+    },
+    {
+        "organ": "neck",
+        "finding": "twisted_neck"
+    }
 ]
