@@ -48,5 +48,9 @@
     {
         "organ": "proventriculus",
         "finding": "pinpoint_hemorrhage"
+    },
+    {
+        "organ": "proventriculus",
+        "finding": "pinpoint_hemorrhage"
     }
 ]
