@@ -40,5 +40,9 @@
     {
         "organ": "comb",
         "finding": "comb_necrosis"
+    },
+    {
+        "organ": "comb",
+        "finding": "comb_cyanosis"
     }
 ]
