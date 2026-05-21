@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+
+# expo
+.expo/
+.expo-shared/
+
+# macOS
+.DS_Store
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+expo-debug.log*
+
+# bundler cache
+.cache/
+
+# distribution
+dist/
+
+# build output
+build/
+android/
+ios/
+
+# editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# misc
+.env
+*.env
