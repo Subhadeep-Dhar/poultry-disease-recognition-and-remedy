@@ -189,5 +189,105 @@
     "finding": "pinpoint_hemorrhage",
     "severity": "high",
     "hindiLabel": "छोटी आंत में सूक्ष्म बिंदु जैसे रक्तस्राव"
-  }
+  },
+  {
+  "id": 20,
+  "imageFileName": "ranikhet_proventriculus_pinpoint_hemorrhage_03.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "proventriculus",
+  "finding": "pinpoint_hemorrhage",
+  "severity": "high",
+  "hindiLabel": "प्रोवेंट्रिकुलस में सूक्ष्म बिंदु जैसे रक्तस्राव"
+},
+{
+  "id": 21,
+  "imageFileName": "ranikhet_twisted_neck_02.png",
+  "disease": "Ranikhet",
+  "category": "clinical",
+  "organ": "neck",
+  "finding": "twisted_neck",
+  "severity": "high",
+  "hindiLabel": "गर्दन का मुड़ जाना"
+},
+{
+  "id": 22,
+  "imageFileName": "ranikhet_esophagus_proventriculus_boundary_hemorrhage_01.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "esophagus_proventriculus_boundary",
+  "finding": "boundary_hemorrhage",
+  "severity": "high",
+  "hindiLabel": "ग्रासनली और प्रोवेंट्रिकुलस की सीमा पर रक्तस्राव"
+},
+{
+  "id": 23,
+  "imageFileName": "ranikhet_proventriculus_gizzard_boundary_hemorrhage_01.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "proventriculus_gizzard_boundary",
+  "finding": "boundary_hemorrhage",
+  "severity": "high",
+  "hindiLabel": "प्रोवेंट्रिकुलस और गिजार्ड की सीमा पर रक्तस्राव"
+},
+{
+  "id": 24,
+  "imageFileName": "ranikhet_stomach_mucosa_fibrin_deposit_01.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "stomach_mucosa",
+  "finding": "mucosal_swelling_fibrin_deposit",
+  "severity": "high",
+  "hindiLabel": "सूजी हुई आमाशय की श्लेष्मिक झिल्ली तथा म्यूकस और फाइब्रिनस जमाव"
+},
+{
+  "id": 25,
+  "imageFileName": "ranikhet_oral_nasopharynx_inflammation_01.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "oral_nasopharynx",
+  "finding": "diphtheritic_inflammation",
+  "severity": "high",
+  "hindiLabel": "मुख गुहा, नासोफैरिंक्स तथा ग्रासनली में सूजन और डिफ्थेरिटिक जमाव"
+},
+{
+  "id": 26,
+  "imageFileName": "ranikhet_intestinal_diphtheritic_plaques_01.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "intestine",
+  "finding": "diphtheritic_plaques",
+  "severity": "high",
+  "hindiLabel": "धूसर-पीले रंग के डिफ्थेरिटिक प्लाक"
+},
+{
+  "id": 27,
+  "imageFileName": "ranikhet_catarrhal_intestinal_inflammation_01.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "intestine",
+  "finding": "catarrhal_necrotic_inflammation",
+  "severity": "high",
+  "hindiLabel": "सम्पूर्ण आंत्र मार्ग की श्लेष्मिक झिल्ली में कैटर्र्हल सूजन"
+},
+{
+  "id": 28,
+  "imageFileName": "ranikhet_cecal_tonsil_necrotic_tonsillitis_01.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "cecal_tonsils",
+  "finding": "hemorrhagic_necrotic_tonsillitis",
+  "severity": "high",
+  "hindiLabel": "रक्तस्रावी नेक्रोटिक टॉन्सिलाइटिस (सीकल टॉन्सिल्स)"
+},
+{
+  "id": 29,
+  "imageFileName": "ranikhet_proventriculus_hemorrhage_04.png",
+  "disease": "Ranikhet",
+  "category": "postmortem",
+  "organ": "proventriculus",
+  "finding": "hemorrhage",
+  "severity": "high",
+  "hindiLabel": "प्रोवेंट्रिकुलस पर रक्तस्राव"
+}
 ]
