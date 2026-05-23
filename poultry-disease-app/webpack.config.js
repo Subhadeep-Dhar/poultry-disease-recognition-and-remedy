@@ -1,6 +1,7 @@
 const createExpoWebpackConfig = require('@expo/webpack-config');
 
 module.exports = async function (env, argv) {
+  console.log('[webpack.config] custom webpack config loaded');
   const config = await createExpoWebpackConfig(env, argv);
 
   config.resolve = config.resolve || {};

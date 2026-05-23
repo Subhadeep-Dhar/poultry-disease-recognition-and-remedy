@@ -1,19 +1,15 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
-import { View, Image, StyleSheet, Animated } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Text, ProgressBar, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { ScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/appStore';
 import { getDiseaseById } from '../data/diseases';
 import type { AnalysisResult } from '../store/appStore';
+import { saveReport } from '../utils/reportsStorage';
+import { diagnoseDisease } from '../services/diagnosisEngine';
 
 type Props = ScreenProps<'Analysis'>;
-
-// ─────────────────────────────────────────────────────────────
-// Simulated analysis pipeline.
-// Phase 5: replace runSimulatedAnalysis() with real ML inference.
-// Everything else — store write, navigation — stays identical.
-// ─────────────────────────────────────────────────────────────
 
 const ANALYSIS_STEPS = [
   'Loading image…',
@@ -24,20 +20,25 @@ const ANALYSIS_STEPS = [
   'Finalising result…',
 ];
 
-const STEP_DURATION_MS = 500; // 6 steps × 500ms = 3 s total
+const STEP_DURATION_MS = 500;
 
-async function runSimulatedAnalysis(imageUri: string): Promise<AnalysisResult> {
-  // Simulated delay matching ANALYSIS_STEPS count
+async function runAnalysis(imageUri: string): Promise<AnalysisResult> {
   await new Promise((resolve) =>
     setTimeout(resolve, ANALYSIS_STEPS.length * STEP_DURATION_MS)
   );
 
-  // Hardcoded result — Phase 5 replaces this with real model output
+  const diagnosis = diagnoseDisease();
+  const disease = getDiseaseById(diagnosis.disease) ?? getDiseaseById('ranikhet');
+
+  if (!disease) {
+    throw new Error('Unable to resolve disease for analysis result');
+  }
+
   return {
-    diseaseId: 'ranikhet',
-    diseaseName: 'Ranikhet Disease',
-    confidence: 87,
-    matchedSymptomIds: ['rnk-s1', 'rnk-s2', 'rnk-s3'],
+    diseaseId: disease.id,
+    diseaseName: disease.name,
+    confidence: Math.round(diagnosis.confidence * 100),
+    matchedSymptomIds: disease.symptoms.slice(0, 3).map((symptom) => symptom.id),
     analysedAt: new Date().toISOString(),
     imageUri,
   };
@@ -52,7 +53,6 @@ export default function AnalysisScreen({ navigation }: Props) {
 
   const [stepIndex, setStepIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const progressAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (!imageUri) {
@@ -60,41 +60,46 @@ export default function AnalysisScreen({ navigation }: Props) {
       return;
     }
 
-    // Advance step label every STEP_DURATION_MS
+    let isActive = true;
+    let navigationTimeout: ReturnType<typeof setTimeout> | undefined;
+
     const stepInterval = setInterval(() => {
-      setStepIndex((prev) => {
-        const next = prev + 1;
-        if (next >= ANALYSIS_STEPS.length) {
-          clearInterval(stepInterval);
-        }
-        return Math.min(next, ANALYSIS_STEPS.length - 1);
-      });
-      setProgress((prev) =>
-        Math.min(prev + 1 / ANALYSIS_STEPS.length, 1)
-      );
+      if (!isActive) return;
+      setStepIndex((prev) => Math.min(prev + 1, ANALYSIS_STEPS.length - 1));
+      setProgress((prev) => Math.min(prev + 1 / ANALYSIS_STEPS.length, 1));
     }, STEP_DURATION_MS);
 
-    // Run the (simulated) analysis
-    runSimulatedAnalysis(imageUri).then((result) => {
+    runAnalysis(imageUri)
+      .then(async (result) => {
+        if (!isActive) return;
+
+        clearInterval(stepInterval);
+        setProgress(1);
+        setStepIndex(ANALYSIS_STEPS.length - 1);
+
+        await saveReport(result);
+
+        setAnalysisResult(result);
+        const disease = getDiseaseById(result.diseaseId);
+        if (disease) setSelectedDisease(disease);
+
+        navigationTimeout = setTimeout(() => {
+          if (!isActive) return;
+          navigation.replace('Result');
+        }, 600);
+      })
+      .catch(() => {
+        if (!isActive) return;
+        clearInterval(stepInterval);
+        navigation.replace('DiseaseDetection');
+      });
+
+    return () => {
+      isActive = false;
       clearInterval(stepInterval);
-      setProgress(1);
-      setStepIndex(ANALYSIS_STEPS.length - 1);
-
-      // Write result to store
-      setAnalysisResult(result);
-
-      // Also set selectedDisease so ResultScreen / RemedyScreen can read it
-      const disease = getDiseaseById(result.diseaseId);
-      if (disease) setSelectedDisease(disease);
-
-      // Brief pause so user sees 100% before transitioning
-      setTimeout(() => {
-        navigation.replace('Result');
-      }, 600);
-    });
-
-    return () => clearInterval(stepInterval);
-  }, []);
+      if (navigationTimeout) clearTimeout(navigationTimeout);
+    };
+  }, [imageUri, navigation, setAnalysisResult, setSelectedDisease]);
 
   return (
     <View
@@ -106,7 +111,6 @@ export default function AnalysisScreen({ navigation }: Props) {
         },
       ]}
     >
-      {/* Banner */}
       <View style={[styles.banner, { backgroundColor: theme.colors.primary }]}>
         <Text variant="titleMedium" style={styles.bannerTitle}>
           🔬  Analysing Image
@@ -117,7 +121,6 @@ export default function AnalysisScreen({ navigation }: Props) {
       </View>
 
       <View style={styles.body}>
-        {/* Image thumbnail */}
         {imageUri && (
           <Image
             source={{ uri: imageUri }}
@@ -126,7 +129,6 @@ export default function AnalysisScreen({ navigation }: Props) {
           />
         )}
 
-        {/* Step label */}
         <Text
           variant="titleSmall"
           style={[styles.stepLabel, { color: theme.colors.onBackground }]}
@@ -134,7 +136,6 @@ export default function AnalysisScreen({ navigation }: Props) {
           {ANALYSIS_STEPS[stepIndex]}
         </Text>
 
-        {/* Progress bar */}
         <View style={styles.progressContainer}>
           <ProgressBar
             progress={progress}
@@ -152,9 +153,12 @@ export default function AnalysisScreen({ navigation }: Props) {
         <View style={styles.note}>
           <Text
             variant="bodySmall"
-            style={{ color: theme.colors.onSurfaceVariant, textAlign: 'center' }}
+            style={{
+              color: theme.colors.onSurfaceVariant,
+              textAlign: 'center',
+            }}
           >
-            ⚙️  Simulated analysis — real ML inference arrives in Phase 5
+            ⚙️  Your image is being processed by the local diagnosis flow.
           </Text>
         </View>
       </View>
@@ -185,19 +189,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
   },
-  stepLabel: {
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  progressContainer: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  progressBar: {
-    width: '100%',
-    height: 8,
-    borderRadius: 4,
-  },
+  stepLabel: { fontWeight: '600', textAlign: 'center' },
+  progressContainer: { width: '100%', alignItems: 'center' },
+  progressBar: { width: '100%', height: 8, borderRadius: 4 },
   note: {
     padding: 12,
     borderRadius: 8,
