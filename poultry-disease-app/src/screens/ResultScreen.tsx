@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { ScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/appStore';
 import { SectionHeader } from '../components/SectionHeader';
+import { isModelReady } from '../ml/inferenceEngine';
 
 type Props = ScreenProps<'Result'>;
 
@@ -43,6 +44,7 @@ export default function ResultScreen({ navigation }: Props) {
   const labelColor = confidenceColor(result.confidence);
   const label = confidenceLabel(result.confidence);
   const analysedDate = new Date(result.analysedAt).toLocaleString();
+  const usedRealModel = isModelReady();
 
   return (
     <ScrollView
@@ -74,7 +76,9 @@ export default function ResultScreen({ navigation }: Props) {
 
         <View style={styles.simulatedBadge}>
           <Text variant="labelSmall" style={styles.simulatedText}>
-            ⚙️  SIMULATED — Phase 5 replaces with real ML
+            {usedRealModel
+              ? '✓  REAL ML — TFLite on-device inference'
+              : '⚙️  SIMULATED — add model to assets/models/ to enable ML'}
           </Text>
         </View>
       </View>
