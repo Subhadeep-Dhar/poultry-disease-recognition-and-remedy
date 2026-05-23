@@ -1,5 +1,12 @@
 ﻿export const colors = {
-  primary: '#4f8cff',
-  background: '#f4f6fc',
-  text: '#111',
+  light: {
+    primary: '#4CAF50',
+    background: '#FFFFFF',
+    text: '#000000',
+  },
+  dark: {
+    primary: '#81C784',
+    background: '#121212',
+    text: '#FFFFFF',
+  },
 };

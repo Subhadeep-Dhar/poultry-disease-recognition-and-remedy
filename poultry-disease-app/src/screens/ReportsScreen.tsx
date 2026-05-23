@@ -1,11 +1,22 @@
 ﻿import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
+import type { ScreenProps } from '../navigation/types';
 
-const ReportsScreen = () => (
-  <View style={styles.container}>
-    <Text>Reports Screen</Text>
-  </View>
-);
+type Props = ScreenProps<'Reports'>;
 
-const styles = StyleSheet.create({ container: { flex: 1, justifyContent: 'center', alignItems: 'center' } });
-export default ReportsScreen;
+export default function ReportsScreen({ navigation }: Props) {
+  return (
+    <View style={styles.container}>
+      <Text variant="headlineMedium">Reports Screen</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

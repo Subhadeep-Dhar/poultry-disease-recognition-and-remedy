@@ -1,11 +1,22 @@
 ﻿import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
+import type { ScreenProps } from '../navigation/types';
 
-const AnalysisScreen = () => (
-  <View style={styles.container}>
-    <Text>Analysis Screen</Text>
-  </View>
-);
+type Props = ScreenProps<'Analysis'>;
 
-const styles = StyleSheet.create({ container: { flex: 1, justifyContent: 'center', alignItems: 'center' } });
-export default AnalysisScreen;
+export default function AnalysisScreen({ navigation }: Props) {
+  return (
+    <View style={styles.container}>
+      <Text variant="headlineMedium">Analysis Screen</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

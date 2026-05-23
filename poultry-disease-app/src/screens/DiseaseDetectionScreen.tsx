@@ -1,11 +1,22 @@
 ﻿import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
+import type { ScreenProps } from '../navigation/types';
 
-const DiseaseDetectionScreen = () => (
-  <View style={styles.container}>
-    <Text>Disease Detection Screen</Text>
-  </View>
-);
+type Props = ScreenProps<'DiseaseDetection'>;
 
-const styles = StyleSheet.create({ container: { flex: 1, justifyContent: 'center', alignItems: 'center' } });
-export default DiseaseDetectionScreen;
+export default function DiseaseDetectionScreen({ navigation }: Props) {
+  return (
+    <View style={styles.container}>
+      <Text variant="headlineMedium">Disease Detection Screen</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

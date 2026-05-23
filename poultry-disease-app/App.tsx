@@ -1,19 +1,21 @@
 ﻿import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
-const App = () => (
-  <View style={styles.container}>
-    <Text>Poultry Disease App</Text>
-  </View>
-);
+import { AppNavigator } from './src/navigation/AppNavigator';
+import { appTheme } from './src/theme/appTheme';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-});
-
-export default App;
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <PaperProvider theme={appTheme}>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+        <StatusBar style="auto" />
+      </PaperProvider>
+    </SafeAreaProvider>
+  );
+}
