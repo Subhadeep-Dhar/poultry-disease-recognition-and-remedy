@@ -10,6 +10,15 @@
     "ios": {
       "icon": "./assets/images/icon.png"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Poultry Health to access your photos for disease detection.",
+          "cameraPermission": "Allow Poultry Health to use the camera to photograph sick birds."
+        }
+      ]
+    ],
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",

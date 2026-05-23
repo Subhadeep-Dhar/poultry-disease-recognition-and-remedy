@@ -15,6 +15,30 @@ export default function HomeScreen({ navigation }: Props) {
   const diseases = useAppStore((s) => s.diseases);
   const setSelectedDisease = useAppStore((s) => s.setSelectedDisease);
 
+  const devRoutes = [
+    {
+      label: 'Symptoms Screen',
+      onPress: () => navigation.navigate('Symptoms'),
+    },
+    {
+      label: 'Image Selection Screen',
+      onPress: () =>
+        navigation.navigate('ImageSelection', { mode: 'gallery' }),
+    },
+    {
+      label: 'Analysis Screen',
+      onPress: () => navigation.navigate('Analysis'),
+    },
+    {
+      label: 'Result Screen',
+      onPress: () => navigation.navigate('Result'),
+    },
+    {
+      label: 'Remedy Screen',
+      onPress: () => navigation.navigate('Remedy'),
+    },
+  ];
+
   return (
     <View
       style={[
@@ -97,20 +121,12 @@ export default function HomeScreen({ navigation }: Props) {
           subtitle="Tap any screen to verify navigation — remove before release"
         />
 
-        {(
-          [
-            ['Symptoms', 'Symptoms Screen'],
-            ['ImageSelection', 'Image Selection Screen'],
-            ['Analysis', 'Analysis Screen'],
-            ['Result', 'Result Screen'],
-            ['Remedy', 'Remedy Screen'],
-          ] as const
-        ).map(([route, label]) => (
+        {devRoutes.map(({ label, onPress }) => (
           <Button
-            key={route}
+            key={label}
             mode="outlined"
             style={styles.devButton}
-            onPress={() => navigation.navigate(route)}
+            onPress={onPress}
           >
             {label}
           </Button>
