@@ -1,10 +1,14 @@
-﻿import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, Button, Card, Divider, useTheme } from 'react-native-paper';
+import React from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Text, Button, Divider, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ScreenProps } from '../navigation/types';
+import { ScreenBanner } from '../components/ScreenBanner';
 import { SectionHeader } from '../components/SectionHeader';
+import { AnimatedCard } from '../components/AnimatedCard';
 import { useAppStore } from '../store/appStore';
+import { spacing, borderRadius } from '../theme/appTheme';
 
 type Props = ScreenProps<'DiseaseDetection'>;
 
@@ -14,7 +18,6 @@ export default function DiseaseDetectionScreen({ navigation }: Props) {
   const setSelectedImageUri = useAppStore((s) => s.setSelectedImageUri);
   const setAnalysisResult = useAppStore((s) => s.setAnalysisResult);
 
-  // Clear any previous session when starting fresh
   const startSession = (mode: 'camera' | 'gallery') => {
     setSelectedImageUri(null);
     setAnalysisResult(null);
@@ -22,124 +25,124 @@ export default function DiseaseDetectionScreen({ navigation }: Props) {
   };
 
   return (
-    <View
-      style={[
-        styles.root,
-        {
-          backgroundColor: theme.colors.background,
-          paddingBottom: insets.bottom + 24,
-        },
-      ]}
-    >
-      <View style={[styles.banner, { backgroundColor: theme.colors.primary }]}>
-        <Text variant="titleMedium" style={styles.bannerTitle}>
-          Disease Detection
-        </Text>
-        <Text variant="bodySmall" style={styles.bannerSub}>
-          Photograph a sick bird or upload an existing image
-        </Text>
-      </View>
-
-      <SectionHeader
-        title="Choose Input Method"
-        subtitle="Select how you want to provide the image"
+    <View style={[styles.root, { backgroundColor: theme.colors.background }]}>
+      <ScreenBanner
+        icon="stethoscope"
+        title="Disease Detection"
+        subtitle="Photograph or upload an image of a sick bird for analysis"
       />
 
-      <Card
-        style={[styles.card, { backgroundColor: theme.colors.surface }]}
-        mode="elevated"
+      <ScrollView
+        contentContainerStyle={[styles.scroll, { paddingBottom: insets.bottom + spacing.xl }]}
+        showsVerticalScrollIndicator={false}
       >
-        <Card.Title
-          title="📷  Take a Photo"
-          subtitle="Use your camera to capture the bird"
-          titleStyle={{ color: theme.colors.onSurface }}
+        <SectionHeader
+          title="Choose Input Method"
+          subtitle="Select how you want to provide the image for analysis"
         />
-        <Card.Content>
-          <Text
-            variant="bodySmall"
-            style={{ color: theme.colors.onSurfaceVariant }}
-          >
-            Point your camera at the sick bird and capture a clear, well-lit
-            photo for best results.
+
+        {/* Camera option */}
+        <AnimatedCard delay={0} onPress={() => startSession('camera')} style={styles.card}>
+          <View style={styles.cardBody}>
+            <View style={[styles.iconArea, { backgroundColor: theme.colors.primary + '14' }]}>
+              <MaterialCommunityIcons name="camera-outline" size={32} color={theme.colors.primary} />
+            </View>
+            <View style={styles.cardText}>
+              <Text variant="titleSmall" style={{ color: theme.colors.onSurface, fontWeight: '700' }}>
+                Take a Photo
+              </Text>
+              <Text variant="bodySmall" style={{ color: theme.colors.onSurfaceVariant, lineHeight: 20 }}>
+                Use your camera to capture a clear, well-lit photograph of the affected bird for best diagnostic results.
+              </Text>
+              <Button
+                mode="contained"
+                icon="camera"
+                onPress={() => startSession('camera')}
+                style={styles.cardButton}
+                contentStyle={{ paddingVertical: 2 }}
+                compact
+              >
+                Open Camera
+              </Button>
+            </View>
+          </View>
+        </AnimatedCard>
+
+        <Divider style={styles.divider} />
+
+        {/* Gallery option */}
+        <AnimatedCard delay={80} onPress={() => startSession('gallery')} style={styles.card}>
+          <View style={styles.cardBody}>
+            <View style={[styles.iconArea, { backgroundColor: theme.colors.secondary + '14' }]}>
+              <MaterialCommunityIcons name="image-outline" size={32} color={theme.colors.secondary} />
+            </View>
+            <View style={styles.cardText}>
+              <Text variant="titleSmall" style={{ color: theme.colors.onSurface, fontWeight: '700' }}>
+                Upload from Gallery
+              </Text>
+              <Text variant="bodySmall" style={{ color: theme.colors.onSurfaceVariant, lineHeight: 20 }}>
+                Choose an existing photograph of the affected bird from your device's photo gallery.
+              </Text>
+              <Button
+                mode="contained-tonal"
+                icon="image"
+                onPress={() => startSession('gallery')}
+                style={styles.cardButton}
+                contentStyle={{ paddingVertical: 2 }}
+                compact
+              >
+                Open Gallery
+              </Button>
+            </View>
+          </View>
+        </AnimatedCard>
+
+        {/* Info note */}
+        <View style={[styles.infoBox, { backgroundColor: theme.colors.tertiaryContainer }]}>
+          <MaterialCommunityIcons
+            name="information-outline"
+            size={16}
+            color={theme.colors.tertiary}
+            style={{ marginTop: 1 }}
+          />
+          <Text variant="bodySmall" style={{ color: theme.colors.onSurfaceVariant, flex: 1, lineHeight: 20 }}>
+            The analysis engine processes your image and returns a disease probability. Currently running
+            simulated analysis — real ML inference will be enabled in a future update.
           </Text>
-        </Card.Content>
-        <Card.Actions>
-          <Button
-            mode="contained"
-            onPress={() => startSession('camera')}
-            icon="camera"
-          >
-            Open Camera
-          </Button>
-        </Card.Actions>
-      </Card>
-
-      <Divider style={styles.divider} />
-
-      <Card
-        style={[styles.card, { backgroundColor: theme.colors.surface }]}
-        mode="elevated"
-      >
-        <Card.Title
-          title="🖼️  Upload from Gallery"
-          subtitle="Select an existing photo from your device"
-          titleStyle={{ color: theme.colors.onSurface }}
-        />
-        <Card.Content>
-          <Text
-            variant="bodySmall"
-            style={{ color: theme.colors.onSurfaceVariant }}
-          >
-            Choose a previously taken photo of the affected bird from your
-            device gallery.
-          </Text>
-        </Card.Content>
-        <Card.Actions>
-          <Button
-            mode="contained-tonal"
-            onPress={() => startSession('gallery')}
-            icon="image"
-          >
-            Open Gallery
-          </Button>
-        </Card.Actions>
-      </Card>
-
-      <View style={styles.infoBox}>
-        <Text
-          variant="bodySmall"
-          style={{ color: theme.colors.onSurfaceVariant }}
-        >
-          🔬  The analysis engine will process the image and return a disease
-          match. Currently running simulated analysis — real ML in Phase 5.
-        </Text>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  banner: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 20,
-    gap: 4,
+  scroll: { paddingTop: spacing.xs },
+  card: { marginTop: spacing.xs },
+  cardBody: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    padding: spacing.md,
+    gap: spacing.md,
   },
-  bannerTitle: { color: '#FFFFFF', fontWeight: '700' },
-  bannerSub: { color: '#FFFFFFBB' },
-  card: {
-    marginHorizontal: 16,
-    marginTop: 8,
-    borderRadius: 12,
-    elevation: 2,
+  iconArea: {
+    width: 56,
+    height: 56,
+    borderRadius: borderRadius.md,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
   },
-  divider: { marginHorizontal: 16, marginTop: 16 },
+  cardText: { flex: 1, gap: spacing.sm },
+  cardButton: { alignSelf: 'flex-start', marginTop: spacing.xs },
+  divider: { marginHorizontal: spacing.md, marginVertical: spacing.xs },
   infoBox: {
-    marginHorizontal: 16,
-    marginTop: 20,
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: '#E3F2FD',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginHorizontal: spacing.md,
+    marginTop: spacing.lg,
+    padding: spacing.md,
+    borderRadius: borderRadius.md,
+    gap: spacing.sm,
   },
 });

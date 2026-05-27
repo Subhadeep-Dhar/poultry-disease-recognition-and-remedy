@@ -18,7 +18,7 @@
           "cameraPermission": "Allow Poultry Health to use the camera to photograph sick birds."
         }
       ],
-      "react-native-fast-tflite"
+      "expo-splash-screen"
     ],
     "assetBundlePatterns": [
       "assets/models/*",
@@ -39,12 +39,8 @@
       "package": "com.subhadeepdhar.poultrydiseaseapp"
     },
     "web": {
-      "output": "static",
+      "output": "single",
       "favicon": "./assets/images/favicon.png"
-    },
-    "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
     }
   }
 }

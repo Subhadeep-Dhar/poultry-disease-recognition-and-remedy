@@ -1,7 +1,25 @@
-import { loadTensorflowModel, TensorflowModel } from 'react-native-fast-tflite';
 import { MODEL_CONFIG } from './modelConfig';
 import { preprocessImage } from './imagePreprocessor';
 import type { AnalysisResult } from '../store/appStore';
+import { FEATURE_FLAGS } from '../config/featureFlags';
+import { useAppStore } from '../store/appStore';
+
+// Basic stub replacements so the file still types correctly.
+type TensorflowModel = any;
+let loadTensorflowModel = async (asset: any, options: any): Promise<TensorflowModel> => {
+  throw new Error('react-native-fast-tflite is disabled during dependency cleanup');
+};
+
+// Dynamically require react-native-fast-tflite ONLY if ENABLE_REAL_ML is active.
+// This prevents bundling issues on Web and runtime crashes in Expo Go.
+if (FEATURE_FLAGS.ENABLE_REAL_ML) {
+  try {
+    const fastTflite = require('react-native-fast-tflite');
+    loadTensorflowModel = fastTflite.loadTensorflowModel;
+  } catch (e) {
+    console.warn('[ML] Failed to load react-native-fast-tflite dynamically:', e);
+  }
+}
 
 // Singleton model instance — loaded once, reused for all inferences
 let _model: TensorflowModel | null = null;
@@ -13,6 +31,11 @@ let _loadAttempted = false;
  * Returns true if model loaded successfully.
  */
 export async function loadModel(): Promise<boolean> {
+  if (!FEATURE_FLAGS.ENABLE_REAL_ML) {
+    console.log('[ML] Real ML disabled — using simulation mode');
+    return true;
+  }
+
   if (_model) return true;
   if (_loadAttempted) return false;
 
@@ -36,6 +59,9 @@ export async function loadModel(): Promise<boolean> {
  * Returns true if the model is loaded and ready.
  */
 export function isModelReady(): boolean {
+  if (!FEATURE_FLAGS.ENABLE_REAL_ML) {
+    return true;
+  }
   return _model !== null;
 }
 
@@ -46,6 +72,29 @@ export function isModelReady(): boolean {
  * If model is not loaded, throws — caller should check isModelReady() first.
  */
 export async function runInference(imageUri: string): Promise<AnalysisResult> {
+  if (!FEATURE_FLAGS.ENABLE_REAL_ML) {
+    // Simulated inference: confidence between 82% and 94%
+    const confidence = Math.floor(Math.random() * (94 - 82 + 1)) + 82;
+    
+    // Matched symptoms: use checked/selected symptoms if available, otherwise fallback
+    const selectedSymptomIds = useAppStore.getState().selectedSymptomIds;
+    const matchedSymptomIds = selectedSymptomIds.length > 0 
+      ? selectedSymptomIds 
+      : ['rnk-s1', 'rnk-s2'];
+
+    // Simulate analysis delay
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    return {
+      diseaseId: 'ranikhet',
+      diseaseName: 'Ranikhet Disease',
+      confidence,
+      matchedSymptomIds,
+      analysedAt: new Date().toISOString(),
+      imageUri,
+    };
+  }
+
   if (!_model) {
     throw new Error('Model not loaded. Call loadModel() first.');
   }
@@ -76,7 +125,7 @@ function parseModelOutput(
   output: Float32Array,
   imageUri: string
 ): AnalysisResult {
-  const { outputClassMap, confidenceThreshold } = MODEL_CONFIG;
+  const { outputClassMap } = MODEL_CONFIG;
 
   // Find argmax
   let maxIndex = 0;

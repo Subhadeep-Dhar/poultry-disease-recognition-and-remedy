@@ -31,6 +31,10 @@ interface AppState {
   modelLoadFailed: boolean;
   setModelReady: (ready: boolean) => void;
   setModelLoadFailed: (failed: boolean) => void;
+
+  // ── Selected symptoms for PoC simulation ──────────────────────────────────
+  selectedSymptomIds: string[];
+  setSelectedSymptomIds: (ids: string[]) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -52,4 +56,7 @@ export const useAppStore = create<AppState>((set) => ({
   modelLoadFailed: false,
   setModelReady: (ready) => set({ modelReady: ready }),
   setModelLoadFailed: (failed) => set({ modelLoadFailed: failed }),
+
+  selectedSymptomIds: [],
+  setSelectedSymptomIds: (ids) => set({ selectedSymptomIds: ids }),
 }));

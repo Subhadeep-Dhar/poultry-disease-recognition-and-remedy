@@ -15,5 +15,12 @@ module.exports = async function (env, argv) {
     'react-dom/client': require.resolve('react-dom/client'),
   };
 
+  config.module = config.module || {};
+  config.module.rules = config.module.rules || [];
+  config.module.rules.push({
+    test: /\.tflite$/,
+    type: 'asset/resource',
+  });
+
   return config;
 };
