@@ -5,3 +5,4 @@ export { AnimatedCard } from './AnimatedCard';
 export { StatusBadge } from './StatusBadge';
 export { IconButtonCard } from './IconButtonCard';
 export { ScreenBanner } from './ScreenBanner';
+export { GalleryTile } from './GalleryTile';       // ← add this line
